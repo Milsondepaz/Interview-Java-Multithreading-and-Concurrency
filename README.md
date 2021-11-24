@@ -312,7 +312,7 @@ Thread Completed
 ## 36- What is BlockingQueue?
 The java.util.concurrent.BlockingQueue is the subinterface of Queue that supports the operations such as waiting for the space availability before inserting a new value or waiting for the queue to become non-empty before retrieving an element from it. Consider the following example.
 
-```      
+
 import java.util.Random;  
 import java.util.concurrent.ArrayBlockingQueue;  
 import java.util.concurrent.BlockingQueue;  
@@ -384,7 +384,7 @@ public class TestThread {
       }  
    }  
 }
-```
+
 **Output:**
 Added: 96
 Removed: 96
@@ -392,11 +392,10 @@ Added: 8
 Removed: 8
 Added: 5
 Removed: 5
-```
+
 
 ## 39- How to implement producer-consumer problem by using BlockingQueue?
 The producer-consumer problem can be solved by using BlockingQueue in the following way.
-
 ```
 import java.util.concurrent.BlockingQueue;  
 import java.util.concurrent.LinkedBlockingQueue;  
@@ -463,7 +462,6 @@ class Consumer implements Runnable{
 }
 ```
 **Output:**
-
 ```
 Produced: 0
 Produced: 1
