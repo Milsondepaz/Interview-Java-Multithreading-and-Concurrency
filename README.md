@@ -33,3 +33,66 @@ The wait() method is provided by the Object class in Java. This method is used f
 ```
 public final void wait()
 ```
+
+## 6- Why must wait() method be called from the synchronized block?
+We must call the wait method otherwise it will throw ```java.lang.IllegalMonitorStateException``` exception. Moreover, we need ```wait()``` method for inter-thread communication with ```notify()``` and ```notifyAll()```. Therefore It must be present in the synchronized block for the proper and correct communication.
+
+## 7- What are the advantages of multithreading?
+Multithreading programming has the following advantages:
+
+- Multithreading allows an application/program to be always reactive for input, even already running with some background tasks
+- Multithreading allows the faster execution of tasks, as threads execute independently.
+- Multithreading provides better utilization of cache memory as threads share the common memory resources.
+- Multithreading reduces the number of the required server as one server can execute multiple threads at a time.
+
+## 8- What are the states in the lifecycle of a Thread?
+A thread can have one of the following states during its lifetime:
+
+1- **New:-** In this state, a Thread class object is created using a new operator, but the thread is not alive. Thread doesn't start until we call the start() method.
+2- **Runnable:** In this state, the thread is ready to run after calling the start() method. However, the thread is not yet selected by the thread scheduler.
+3- **Running:** In this state, the thread scheduler picks the thread from the ready state, and the thread is running.
+4- **Waiting/Blocked:** In this state, a thread is not running but still alive, or it is waiting for the other thread to finish.
+5- **Dead/Terminated:** A thread is in terminated or dead state when the run() method exits.
+
+![image](https://user-images.githubusercontent.com/16039211/143289684-3bdebad6-10a7-472f-b00a-005a27a8c36c.png)
+
+## 6- What is the difference between preemptive scheduling and time slicing?
+Under preemptive scheduling, the highest priority task executes until it enters the waiting or dead states or a higher priority task comes into existence. Under time slicing, a task executes for a predefined slice of time and then reenters the pool of ready tasks. The scheduler then determines which task should execute next, based on priority and other factors.
+
+## 10- What is context switching?
+In Context switching the state of the process (or thread) is stored so that it can be restored and execution can be resumed from the same point later. Context switching enables the multiple processes to share the same CPU.
+
+## 11- Differentiate between the Thread class and Runnable interface for creating a Thread?
+The Thread can be created by using two ways.
+
+- By extending the Thread class
+- By implementing the Runnable interface
+However, the primary differences between both the ways are given below:
+
+- By extending the Thread class, we cannot extend any other class, as Java does not allow multiple inheritances while implementing the Runnable interface; we can also extend other base class(if required).
+- By extending the Thread class, each of thread creates the unique object and associates with it while implementing the Runnable interface; multiple threads share the same object
+- Thread class provides various inbuilt methods such as getPriority(), isAlive and many more while the Runnable interface provides a single method, i.e., run().
+
+## 12- What does join() method?
+The join() method waits for a thread to die. In other words, it causes the currently running threads to stop executing until the thread it joins with completes its task. Join method is overloaded in Thread class in the following ways.
+
+```public void join()throws InterruptedException```
+```public void join(long milliseconds)throws InterruptedException```
+
+## 13- Describe the purpose and working of sleep() method.
+The sleep() method in java is used to block a thread for a particular time, which means it pause the execution of a thread for a specific time. There are two methods of doing so.
+
+**Syntax:**
+
+```public static void sleep(long milliseconds)throws InterruptedException```
+```public static void sleep(long milliseconds, int nanos)throws InterruptedException```
+
+**Working of sleep() method**
+
+When we call the sleep() method, it pauses the execution of the current thread for the given time and gives priority to another thread(if available). Moreover, when the waiting time completed then again previous thread changes its state from waiting to runnable and comes in running state, and the whole process works so on till the execution doesn't complete.
+
+## 14- What is the difference between wait() and sleep() method?
+| wait()      | sleep() |
+| ----------- | ----------- |
+| 1) The wait() method is defined in Object class. | The sleep() method is defined in Thread class. |
+| 2) The wait() method releases the lock. | The sleep() method doesn't release the lock. |
