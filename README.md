@@ -562,8 +562,11 @@ shutdown finished
 
 ## 43- What do you understand by Callable and Future in Java?
 Java Callable interface: In Java5 callable interface was provided by the package java.util.concurrent. It is similar to the Runnable interface but it can return a result, and it can throw an Exception. It also provides a run() method for execution of a thread. Java Callable can return any object as it uses Generic.
+
 **Syntax:**
+	
 ```public interface Callable<V>```
+	
 **Java Future interface:** Java Future interface gives the result of a concurrent process. The Callable interface returns the object of java.util.concurrent.Future.
 
 Java Future provides following methods for implementation.
@@ -578,5 +581,7 @@ ExecutorServcie and ScheduledExecutorService both are the interfaces of java.uti
 
 ## 45- Define FutureTask class in Java?
 Java FutureTask class provides a base implementation of the Future interface. The result can only be obtained if the execution of one task is completed, and if the computation is not achieved then get method will be blocked. If the execution is completed, then it cannot be re-started and can't be canceled.
+
 **Syntax:**
+	
 ```public class FutureTask<V> extends Object implements RunnableFuture<V>```
