@@ -251,3 +251,238 @@ Volatile keyword is used in multithreaded programming to achieve the thread safe
 The advantages of the thread pool are :
 - Using a thread pool, performance can be enhanced.
 - Using a thread pool, better system stability can occur.
+
+## 34- What are the main components of concurrency API?
+Concurrency API can be developed using the class and interfaces of java.util.Concurrent package. There are the following classes and interfaces in java.util.Concurrent package.
+- Executor
+- FarkJoinPool
+- ExecutorService
+- ScheduledExecutorService
+- Future
+- TimeUnit(Enum)
+- CountDownLatch
+- CyclicBarrier
+- Semaphore
+- ThreadFactory
+- BlockingQueue
+- DelayQueue
+- Locks
+- Phaser
+
+## 35-  What is the Executor interface in Concurrency API in Java?
+The Executor Interface provided by the package java.util.concurrent is the simple interface used to execute the new task. The execute() method of Executor interface is used to execute some given command. The syntax of the execute() method is given below.
+
+void execute(Runnable command)
+
+Consider the following example:
+```
+import java.util.concurrent.Executor;  
+import java.util.concurrent.Executors;  
+import java.util.concurrent.ThreadPoolExecutor;  
+import java.util.concurrent.TimeUnit;  
+  
+public class TestThread {  
+   public static void main(final String[] arguments) throws InterruptedException {  
+      Executor e = Executors.newCachedThreadPool();  
+      e.execute(new Thread());  
+      ThreadPoolExecutor pool = (ThreadPoolExecutor)e;  
+      pool.shutdown();  
+   }    
+  
+   static class Thread implements Runnable {  
+      public void run() {  
+         try {  
+            Long duration = (long) (Math.random() * 5);  
+            System.out.println("Running Thread!");  
+            TimeUnit.SECONDS.sleep(duration);  
+            System.out.println("Thread Completed");  
+         } catch (InterruptedException ex) {  
+            ex.printStackTrace();  
+         }  
+      }  
+   }  
+}
+```
+**Output:**
+```
+Running Thread!
+Thread Completed
+```
+
+## 36- What is BlockingQueue?
+The java.util.concurrent.BlockingQueue is the subinterface of Queue that supports the operations such as waiting for the space availability before inserting a new value or waiting for the queue to become non-empty before retrieving an element from it. Consider the following example.
+
+```      
+import java.util.Random;  
+import java.util.concurrent.ArrayBlockingQueue;  
+import java.util.concurrent.BlockingQueue;  
+  
+public class TestThread {  
+  
+   public static void main(final String[] arguments) throws InterruptedException {  
+      BlockingQueue<Integer> queue = new ArrayBlockingQueue<Integer>(10);  
+  
+      Insert i = new Insert(queue);  
+      Retrieve r = new Retrieve(queue);  
+  
+      new Thread(i).start();  
+      new Thread(r).start();  
+  
+      Thread.sleep(2000);  
+   }    
+  
+  
+   static class Insert implements Runnable {  
+      private BlockingQueue<Integer> queue;  
+  
+      public Insert(BlockingQueue queue) {  
+         this.queue = queue;  
+      }  
+  
+      @Override  
+      public void run() {  
+         Random random = new Random();  
+  
+         try {  
+            int result = random.nextInt(200);  
+            Thread.sleep(1000);  
+            queue.put(result);  
+            System.out.println("Added: " + result);  
+              
+            result = random.nextInt(10);  
+            Thread.sleep(1000);  
+            queue.put(result);  
+            System.out.println("Added: " + result);  
+              
+            result = random.nextInt(50);  
+            Thread.sleep(1000);  
+            queue.put(result);  
+            System.out.println("Added: " + result);  
+         } catch (InterruptedException e) {  
+            e.printStackTrace();  
+         }  
+      }      
+   }  
+  
+   static class Retrieve implements Runnable {  
+      private BlockingQueue<Integer> queue;  
+  
+      public Retrieve(BlockingQueue queue) {  
+         this.queue = queue;  
+      }  
+        
+      @Override  
+      public void run() {  
+           
+         try {  
+            System.out.println("Removed: " + queue.take());  
+            System.out.println("Removed: " + queue.take());  
+            System.out.println("Removed: " + queue.take());  
+         } catch (InterruptedException e) {  
+            e.printStackTrace();  
+         }  
+      }  
+   }  
+}
+```
+**Output:**
+Added: 96
+Removed: 96
+Added: 8
+Removed: 8
+Added: 5
+Removed: 5
+```
+
+## 39- How to implement producer-consumer problem by using BlockingQueue?
+The producer-consumer problem can be solved by using BlockingQueue in the following way.
+
+```
+import java.util.concurrent.BlockingQueue;  
+import java.util.concurrent.LinkedBlockingQueue;  
+import java.util.logging.Level;  
+import java.util.logging.Logger;  
+public class ProducerConsumerProblem {  
+    public static void main(String args[]){  
+     //Creating shared object  
+     BlockingQueue sharedQueue = new LinkedBlockingQueue();  
+  
+     //Creating Producer and Consumer Thread  
+     Thread prod = new Thread(new Producer(sharedQueue));  
+     Thread cons = new Thread(new Consumer(sharedQueue));  
+  
+     //Starting producer and Consumer thread  
+     prod.start();  
+     cons.start();  
+    }  
+   
+}  
+  
+//Producer Class in java  
+class Producer implements Runnable {  
+  
+    private final BlockingQueue sharedQueue;  
+  
+    public Producer(BlockingQueue sharedQueue) {  
+        this.sharedQueue = sharedQueue;  
+    }  
+  
+    @Override  
+    public void run() {  
+        for(int i=0; i<10; i++){  
+            try {  
+                System.out.println("Produced: " + i);  
+                sharedQueue.put(i);  
+            } catch (InterruptedException ex) {  
+                Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);  
+            }  
+        }  
+    }  
+  
+}  
+  
+//Consumer Class in Java  
+class Consumer implements Runnable{  
+  
+    private final BlockingQueue sharedQueue;  
+  
+    public Consumer (BlockingQueue sharedQueue) {  
+        this.sharedQueue = sharedQueue;  
+    }  
+    
+    @Override  
+    public void run() {  
+        while(true){  
+            try {  
+                System.out.println("Consumed: "+ sharedQueue.take());  
+            } catch (InterruptedException ex) {  
+                Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);  
+            }  
+        }  
+    }  
+}
+```
+**Output:**
+
+```
+Produced: 0
+Produced: 1
+Produced: 2
+Produced: 3
+Produced: 4
+Produced: 5
+Produced: 6
+Produced: 7
+Produced: 8
+Produced: 9
+Consumed: 0
+Consumed: 1
+Consumed: 2
+Consumed: 3
+Consumed: 4
+Consumed: 5
+Consumed: 6
+Consumed: 7
+Consumed: 8
+Consumed: 9
+```
