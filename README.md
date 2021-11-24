@@ -396,7 +396,7 @@ Removed: 5
 ```
 
 
-## 39- How to implement producer-consumer problem by using BlockingQueue?
+## 37- How to implement producer-consumer problem by using BlockingQueue?
 The producer-consumer problem can be solved by using BlockingQueue in the following way.
 ```
 import java.util.concurrent.BlockingQueue;  
@@ -486,3 +486,76 @@ Consumed: 7
 Consumed: 8
 Consumed: 9
 ```
+
+## 38- What is the difference between Java Callable interface and Runnable interface?
+The Callable interface and Runnable interface both are used by the classes which wanted to execute with multiple threads. However, there are two main differences between the both :
+
+- A Callable <V> interface can return a result, whereas the Runnable interface cannot return any result.
+- A Callable <V> interface can throw a checked exception, whereas the Runnable interface cannot throw checked exception.
+- A Callable <V> interface cannot be used before the Java 5 whereas the Runnable interface can be used.
+
+## 39- What is the Atomic action in Concurrency in Java?
+- The Atomic action is the operation which can be performed in a single unit of a task without any interference of the other operations.
+- The Atomic action cannot be stopped in between the task. Once started it fill stop after the completion of the task only.
+- An increment operation such as a++ does not allow an atomic action.
+- All reads and writes operation for the primitive variable (except long and double) are the atomic operation.
+- All reads and writes operation for the volatile variable (including long and double) are the atomic operation.
+- The Atomic methods are available in java.util.Concurrent package.
+	
+## 40- What is lock interface in Concurrency API in Java?
+The java.util.concurrent.locks.Lock interface is used as the synchronization mechanism. It works similar to the synchronized block. There are a few differences between the lock and synchronized block that are given below.
+- Lock interface provides the guarantee of sequence in which the waiting thread will be given the access, whereas the synchronized block doesn't guarantee it.
+- Lock interface provides the option of timeout if the lock is not granted whereas the synchronized block doesn't provide that.
+- The methods of Lock interface, i.e., Lock() and Unlock() can be called in different methods whereas single synchronized block must be fully contained in a single method.
+
+## 41- The ExecutorService Interface is the subinterface of Executor interface and adds the features to manage the lifecycle. Consider the following example.
+```      
+import java.util.concurrent.ExecutorService;  
+import java.util.concurrent.Executors;  
+import java.util.concurrent.TimeUnit;  
+  
+public class TestThread {  
+   public static void main(final String[] arguments) throws InterruptedException {  
+      ExecutorService e = Executors.newSingleThreadExecutor();  
+  
+      try {  
+         e.submit(new Thread());  
+         System.out.println("Shutdown executor");  
+         e.shutdown();  
+         e.awaitTermination(5, TimeUnit.SECONDS);  
+      } catch (InterruptedException ex) {  
+         System.err.println("tasks interrupted");  
+      } finally {  
+  
+         if (!e.isTerminated()) {  
+            System.err.println("cancel non-finished tasks");  
+         }  
+         e.shutdownNow();  
+         System.out.println("shutdown finished");  
+      }  
+   }  
+  
+   static class Task implements Runnable {  
+        
+      public void run() {  
+           
+         try {  
+            Long duration = (long) (Math.random() * 20);  
+            System.out.println("Running Task!");  
+            TimeUnit.SECONDS.sleep(duration);  
+         } catch (InterruptedException ex) {  
+            ex.printStackTrace();  
+         }  
+      }  
+   }         
+}
+```
+**Output:**
+```
+Shutdown executor
+shutdown finished
+```
+
+## 42- What is the difference between Synchronous programming and Asynchronous programming regarding a thread?
+**- Synchronous programming:** In Synchronous programming model, a thread is assigned to complete a task and hence thread started working on it, and it is only available for other tasks once it will end the assigned task.
+**- Asynchronous Programming:** In Asynchronous programming, one job can be completed by multiple threads and hence it provides maximum usability of the various threads.
