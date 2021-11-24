@@ -100,3 +100,33 @@ When we call the sleep() method, it pauses the execution of the current thread f
 | ----------- | ----------- |
 | 1) The wait() method is defined in Object class. | The sleep() method is defined in Thread class. |
 | 2) The wait() method releases the lock. | The sleep() method doesn't release the lock. |
+
+## 15- Is it possible to start a thread twice?
+No, we cannot restart the thread, as once a thread started and executed, it goes to the Dead state. Therefore, if we try to start a thread twice, it will give a runtimeException "java.lang.IllegalThreadStateException". Consider the following example.
+
+```
+public class Multithread1 extends Thread  
+{  
+   public void run()  
+    {  
+      try {  
+          System.out.println("thread is executing now........");  
+      } catch(Exception e) {  
+      }   
+    }  
+    public static void main (String[] args) {  
+        Multithread1 m1= new Multithread1();  
+        m1.start();  
+        m1.start();  
+    }  
+}
+```
+
+**Output:**
+
+```
+thread is executing now........
+Exception in thread "main" java.lang.IllegalThreadStateException
+	at java.lang.Thread.start(Thread.java:708)
+	at Multithread1.main(Multithread1.java:13)
+  ```
