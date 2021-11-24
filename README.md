@@ -121,12 +121,42 @@ public class Multithread1 extends Thread
     }  
 }
 ```
-
 **Output:**
-
 ```
 thread is executing now........
 Exception in thread "main" java.lang.IllegalThreadStateException
 	at java.lang.Thread.start(Thread.java:708)
 	at Multithread1.main(Multithread1.java:13)
   ```
+
+## 16- Can we call the run() method instead of start()?
+Yes, calling run() method directly is valid, but it will not work as a thread instead it will work as a normal object. There will not be context-switching between the threads. When we call the start() method, it internally calls the run() method, which creates a new stack for a thread while directly calling the run() will not create a new stack.
+
+## 17- What about the daemon threads?
+The daemon threads are the low priority threads that provide the background support and services to the user threads. Daemon thread gets automatically terminated by the JVM if the program remains with the daemon thread only, and all other user threads are ended/died. There are two methods for daemon thread available in the Thread class:
+```
+public void setDaemon(boolean status): It used to mark the thread daemon thread or a user thread.
+public boolean isDaemon(): It checks the thread is daemon or not.
+ ```
+ 
+ ## 18- Can we make the user thread as daemon thread if the thread is started?
+No, if you do so, it will throw IllegalThreadStateException. Therefore, we can only create a daemon thread before starting the thread.
+```
+class Testdaemon1 extends Thread{    
+public void run(){  
+          System.out.println("Running thread is daemon...");  
+}  
+public static void main (String[] args) {  
+      Testdaemon1 td= new Testdaemon1();  
+      td.start();  
+      setDaemon(true);// It will throw the exception: td.   
+   }  
+}
+ ```
+**Output:**
+```
+Running thread is daemon...
+Exception in thread "main" java.lang.IllegalThreadStateException
+at java.lang.Thread.setDaemon(Thread.java:1359)
+at Testdaemon1.main(Testdaemon1.java:8)
+ ```
