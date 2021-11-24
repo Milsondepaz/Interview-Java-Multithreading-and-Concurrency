@@ -557,5 +557,5 @@ shutdown finished
 ```
 
 ## 42- What is the difference between Synchronous programming and Asynchronous programming regarding a thread?
-**- Synchronous programming:** In Synchronous programming model, a thread is assigned to complete a task and hence thread started working on it, and it is only available for other tasks once it will end the assigned task.
-**- Asynchronous Programming:** In Asynchronous programming, one job can be completed by multiple threads and hence it provides maximum usability of the various threads.
+- **Synchronous programming:** In Synchronous programming model, a thread is assigned to complete a task and hence thread started working on it, and it is only available for other tasks once it will end the assigned task.
+- **Asynchronous Programming:** In Asynchronous programming, one job can be completed by multiple threads and hence it provides maximum usability of the various threads.
