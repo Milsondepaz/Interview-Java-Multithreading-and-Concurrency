@@ -172,3 +172,82 @@ Some important points about shutdown hooks are :
 - Shutdown hooks initialized but can only be started when JVM shutdown occurred.
 - Shutdown hooks are more reliable than the finalizer() because there are very fewer chances that shutdown hooks not run.
 - The shutdown hook can be stopped by calling the halt(int) method of Runtime class.
+
+## 20- When should we interrupt a thread?
+We should interrupt a thread when we want to break out the sleep or wait state of a thread. We can interrupt a thread by calling the interrupt() throwing the InterruptedException.
+
+## 21- What is the synchronization?
+Synchronization is the capability to control the access of multiple threads to any shared resource. It is used:
+
+To prevent thread interference.
+To prevent consistency problem.
+When the multiple threads try to do the same task, there is a possibility of an erroneous result, hence to remove this issue, Java uses the process of synchronization which allows only one thread to be executed at a time. Synchronization can be achieved in three ways:
+
+- by the synchronized method
+- by synchronized block
+- by static synchronization
+- Syntax for synchronized block
+```
+synchronized(object reference expression)  
+    {  
+        //code block  
+    }
+ ```
+ 
+ ## 22- What is the purpose of the Synchronized block?
+The Synchronized block can be used to perform synchronization on any specific resource of the method. Only one thread at a time can execute on a particular resource, and all other threads which attempt to enter the synchronized block are blocked.
+- Synchronized block is used to lock an object for any shared resource.
+- The scope of the synchronized block is limited to the block on which, it is applied. Its scope is smaller than a method.
+
+## 23- Can Java object be locked down for exclusive use by a given thread?
+Yes. You can lock an object by putting it in a "synchronized" block. The locked object is inaccessible to any thread other than the one that explicitly claimed it.
+
+## 24- What is static synchronization?
+If you make any static method as synchronized, the lock will be on the class not on the object. If we use the synchronized keyword before a method so it will lock the object (one thread can access an object at a time) but if we use static synchronized so it will lock a class (one thread can access a class at a time).
+      
+## 25- What is the difference between notify() and notifyAll()?
+The notify() is used to unblock one waiting thread whereas notifyAll() method is used to unblock all the threads in waiting state.
+
+## 26- What is the deadlock?
+Deadlock is a situation in which every thread is waiting for a resource which is held by some other waiting thread. In this situation, Neither of the thread executes nor it gets the chance to be executed. Instead, there exists a universal waiting state among all the threads. Deadlock is a very complicated situation which can break our code at runtime.
+
+## 27- How to detect a deadlock condition? How can it be avoided?
+We can detect the deadlock condition by running the code on cmd and collecting the Thread Dump, and if any deadlock is present in the code, then a message will appear on cmd.
+Ways to avoid the deadlock condition in Java:
+- **Avoid Nested lock:** Nested lock is the common reason for deadlock as deadlock occurs when we provide locks to various threads so we should give one lock to only one thread at some particular time.
+- **Avoid unnecessary locks:** we must avoid the locks which are not required.
+- **Using thread join:** Thread join helps to wait for a thread until another thread doesn't finish its execution so we can avoid deadlock by maximum use of join method.
+
+## 28- What is Thread Scheduler in java?
+In Java, when we create the threads, they are supervised with the help of a Thread Scheduler, which is the part of JVM. Thread scheduler is only responsible for deciding which thread should be executed. Thread scheduler uses two mechanisms for scheduling the threads: Preemptive and Time Slicing.
+
+Java thread scheduler also works for deciding the following for a thread:
+- It selects the priority of the thread.
+- It determines the waiting time for a thread
+- It checks the Nature of thread
+
+## 29- Does each thread have its stack in multithreaded programming?
+Yes, in multithreaded programming every thread maintains its own or separate stack area in memory due to which every thread is independent of each other.
+
+## 30- How is the safety of a thread achieved?
+If a method or class object can be used by multiple threads at a time without any race condition, then the class is thread-safe. Thread safety is used to make a program safe to use in multithreaded programming. It can be achieved by the following ways:
+- Synchronization
+- Using Volatile keyword
+- Using a lock based mechanism
+- Use of atomic wrapper classes
+
+## 31- What is race-condition?
+A Race condition is a problem which occurs in the multithreaded programming when various threads execute simultaneously accessing a shared resource at the same time. The proper use of synchronization can avoid the Race condition.
+
+## 32- What is the volatile keyword in java?
+Volatile keyword is used in multithreaded programming to achieve the thread safety, as a change in one volatile variable is visible to all other threads so one variable can be used by one thread at a time.
+
+## 33- What do you understand by thread pool?
+- Java Thread pool represents a group of worker threads, which are waiting for the task to be allocated.
+- Threads in the thread pool are supervised by the service provider which pulls one thread from the pool and assign a job to it.
+- After completion of the given task, thread again came to the thread pool.
+- The size of the thread pool depends on the total number of threads kept at reserve for execution.
+
+The advantages of the thread pool are :
+- Using a thread pool, performance can be enhanced.
+- Using a thread pool, better system stability can occur.
