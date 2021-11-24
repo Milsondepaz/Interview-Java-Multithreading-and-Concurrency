@@ -77,6 +77,7 @@ However, the primary differences between both the ways are given below:
 The join() method waits for a thread to die. In other words, it causes the currently running threads to stop executing until the thread it joins with completes its task. Join method is overloaded in Thread class in the following ways.
 
 ```public void join()throws InterruptedException```
+
 ```public void join(long milliseconds)throws InterruptedException```
 
 ## 13- Describe the purpose and working of sleep() method.
@@ -85,6 +86,7 @@ The sleep() method in java is used to block a thread for a particular time, whic
 **Syntax:**
 
 ```public static void sleep(long milliseconds)throws InterruptedException```
+
 ```public static void sleep(long milliseconds, int nanos)throws InterruptedException```
 
 **Working of sleep() method**
