@@ -559,3 +559,24 @@ shutdown finished
 ## 42- What is the difference between Synchronous programming and Asynchronous programming regarding a thread?
 - **Synchronous programming:** In Synchronous programming model, a thread is assigned to complete a task and hence thread started working on it, and it is only available for other tasks once it will end the assigned task.
 - **Asynchronous Programming:** In Asynchronous programming, one job can be completed by multiple threads and hence it provides maximum usability of the various threads.
+
+## 43- What do you understand by Callable and Future in Java?
+Java Callable interface: In Java5 callable interface was provided by the package java.util.concurrent. It is similar to the Runnable interface but it can return a result, and it can throw an Exception. It also provides a run() method for execution of a thread. Java Callable can return any object as it uses Generic.
+**Syntax:**
+```public interface Callable<V>```
+**Java Future interface:** Java Future interface gives the result of a concurrent process. The Callable interface returns the object of java.util.concurrent.Future.
+
+Java Future provides following methods for implementation.
+
+- **cancel(boolean mayInterruptIfRunning):** It is used to cancel the execution of the assigned task.
+- **get():** It waits for the time if execution not completed and then retrieved the result.
+- **isCancelled():** It returns the Boolean value as it returns true if the task was canceled before the completion.
+- **isDone():** It returns true if the job is completed successfully else returns false.
+
+## 44- What is the difference between ScheduledExecutorService and ExecutorService interface?
+ExecutorServcie and ScheduledExecutorService both are the interfaces of java.util.Concurrent package but scheduledExecutorService provides some additional methods to execute the Runnable and Callable tasks with the delay or every fixed time period.
+
+## 45- Define FutureTask class in Java?
+Java FutureTask class provides a base implementation of the Future interface. The result can only be obtained if the execution of one task is completed, and if the computation is not achieved then get method will be blocked. If the execution is completed, then it cannot be re-started and can't be canceled.
+**Syntax:**
+```public class FutureTask<V> extends Object implements RunnableFuture<V>```
